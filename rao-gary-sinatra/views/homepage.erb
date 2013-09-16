@@ -1,0 +1,23 @@
+<html>
+  <head>
+
+    <title>Welecome to Rao's and Gary's Discussion Page</title>
+
+  </head>
+
+  <body>
+    
+   
+
+    <form action = "/" method = "post">
+        <input type="text" name = "textfield">
+        <input type="submit" value = "press this button">
+    </form>
+
+    <% if @response_word %>
+    <h1> you submitted a response <%= @response_word %></h1>
+    <% end %>
+
+  </body>
+
+</html>
