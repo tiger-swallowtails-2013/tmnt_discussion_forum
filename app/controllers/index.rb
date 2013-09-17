@@ -1,4 +1,4 @@
-require 'sinatra'
+require_relative '../../config/main'
 
 get '/' do
   erb :index
