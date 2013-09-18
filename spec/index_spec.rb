@@ -13,9 +13,11 @@ describe '/' do
   include Rack::Test::Methods
   it "should exist on server" do
     get '/'
-    last_response.status.should == 404
+    last_response.status.should == 200
   end
-  it "should have title 'Topics'"
-  it 
+  it "should have title 'Topics'" do
+    get '/'
+    last_response.body.should include('Topics')
+  end
 end
 
