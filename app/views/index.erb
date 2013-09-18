@@ -1,4 +1,21 @@
 <h1>Denim Headzzz</h1>
+<table>
+  <tr>
+    <td>Title</td>
+    <td>Description</td>
+    <td>Created At</td>
+    <td>Most Recent Post</td>
+  </tr>
+  <% @topics.each do |topic| %>
+    <tr>
+      <td><%= topic.title %></td>
+      <td><%= topic.description %></td>
+      <td><%= topic.created_at %></td>
+      <td><%= topic.updated_at %></td>
+    </tr>
+  <% end %>
+</table>
+
 
 <div id="add_topic">
   <form action="/" method="post">

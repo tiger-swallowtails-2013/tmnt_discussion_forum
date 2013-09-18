@@ -6,7 +6,7 @@ require 'models/topic'
 
 
 get '/' do
-  @topic = Topic.all 
+  @topics = Topic.all 
   @title = 'Topics'
   erb :index
 end
