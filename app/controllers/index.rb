@@ -12,7 +12,7 @@ get '/' do
 end
 
 post '/' do
-  topic = Topic.create(params)
+  Topic.create!(params)
   redirect '/'
 end
 

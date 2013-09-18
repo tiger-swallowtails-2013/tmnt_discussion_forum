@@ -11,7 +11,7 @@ def app
   Sinatra::Application
 end
 
-describe '/' do 
+describe '/' do
   include Rack::Test::Methods
   it "should exist on server" do
     get '/'
@@ -23,3 +23,19 @@ describe '/' do
   end
 end
 
+describe 'add new topic' do
+  include Rack::Test::Methods
+  it "should have a title form" do
+    get '/'
+    last_response.body.should include("name=\"title\"")
+  end
+
+  it "should have a description form"
+
+  it "should have a tags form"
+
+  it "should create a new topic with title" do
+    post '/', {:title => "some title", :description => "some description" }
+    Topic.last.title.should eql "some title"
+  end
+end
