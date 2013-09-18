@@ -1,5 +1,8 @@
-require_relative '../../config/main'
-require_relative '../models/topic'
+$LOAD_PATH.unshift(File.expand_path("./app"))
+$LOAD_PATH.unshift(File.expand_path("."))
+
+require 'config/main'
+require 'models/topic'
 
 
 get '/' do

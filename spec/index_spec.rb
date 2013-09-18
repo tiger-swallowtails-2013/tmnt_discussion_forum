@@ -1,4 +1,6 @@
-require '../app/controllers/index.rb'
+$LOAD_PATH.unshift(File.expand_path("./app"))
+
+require 'controllers/index.rb'
 
 require 'rspec'
 require 'rack/test'
