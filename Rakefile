@@ -1,4 +1,5 @@
 require 'rake'
+require 'date'
 
 require_relative 'config/main'
 
@@ -26,5 +27,11 @@ end
 desc 'Start IRB with application environment loaded'
 task "console" do
   exec "irb -r./config/application"
+end
+
+desc 'create new migration file'
+task 'create_migration' do
+  puts "creating migration file"
+  touch MIGRATION_PATH
 end
 
