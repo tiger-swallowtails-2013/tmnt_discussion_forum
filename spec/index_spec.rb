@@ -39,3 +39,19 @@ describe 'add new topic' do
     Topic.last.title.should eql "some title"
   end
 end
+
+describe 'homepage' do
+  include Rack::Test::Methods
+
+  it "should list last submitted topic on homepage" do
+    post '/', {:title => "some title", :description => "some description" }
+    get '/'
+    last_response.body.should include("some description")
+  end
+
+  # it "should all submitted topics on homepage" do
+  #   get '/'
+  #   last_response.body.should include("some other description")
+  # end
+
+end
