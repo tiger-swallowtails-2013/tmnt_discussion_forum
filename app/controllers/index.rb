@@ -1,64 +1,64 @@
 require_relative '../../config/main'
-require 'data_mapper'
+require_relative '../models/topic'
 
-DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/index.db")
 
-class Comment
-  include DataMapper::Resource
-  property :id, Serial
-  property :title, Text
-  property :content, Text, :required => true
-  property :created_at, DateTime
-  property :updated_at, DateTime
-end
+# require 'data_mapper'
 
-class Thread
-  include DataMapper::Resource
-  property :id, Serial
-  property :title, Text
-  property :description, Text, :required => true
-  property :created_at, DateTime
-  property :updated_at, DateTime
-end
+# DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/index.db")
 
-DataMapper.finalize.auto_upgrade!
+# class Comment
+#   include DataMapper::Resource
+#   property :id, Serial
+#   property :title, Text
+#   property :content, Text, :required => true
+#   property :created_at, DateTime
+#   property :updated_at, DateTime
+# end
 
-helpers do
-  include Rack::Utils
-  alias_method :h, :escape_html
-end
+# class Thread
+#   include DataMapper::Resource
+#   property :id, Serial
+#   property :title, Text
+#   property :description, Text, :required => true
+#   property :created_at, DateTime
+#   property :updated_at, DateTime
+# end
+
+# # DataMapper.finalize.auto_upgrade!
+
+# helpers do
+#   include Rack::Utils
+#   alias_method :h, :escape_html
+# end
 
 get '/' do
-  @thread = Thread.all :order => :id.desc
-  @title = 'Threads'
+  @topic = Topic.all 
+  # :order => :id.desc
+  @title = 'Topics'
   erb :index
 end
 
 post '/' do
-  thread = Thread.new
-  thread.title = params[:title]
-  thread.description = params[:description]
-  thread.created_at = Time.now
-  thread.updated_at = Time.now
-  thread.save
+  topic = Topic.create(params)
+  topic.title = params[:title]
+  topic.description = params[:description]
   redirect '/'
 end
 
-get '/threads' do
-  @comments = Comment.all :order => :id.desc
+get '/topics' do
+  @comments = Comment.all
+  # :order => :id.desc
   @title = 'All Comments'
-  # params[:thread]
-  erb :threads
+  # params[:topic]
+  erb :topics
 end
 
-post '/threads' do
-  comment = Comment.new 
-  comment.content = params[:content]
-  comment.title = params[:title]
-  comment.created_at = Time.now
-  comment.updated_at = Time.now
-  comment.save
-  redirect '/:threads'
+post '/topics' do
+
+  comment = Comment.create(params)
+  
+  # comment.title = params[:title]
+  redirect '/topics'
 end
 
 get '/*' do 
