@@ -1,5 +1,6 @@
 require 'rake'
 require 'date'
+require 'sinatra/activerecord/rake'
 
 require_relative 'config/main'
 
