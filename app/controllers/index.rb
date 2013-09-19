@@ -16,13 +16,19 @@ post '/' do
   redirect '/'
 end
 
-get '/topics' do
-  @comments = Comment.all
-  @title = 'All Comments'
+get '/topic/:id' do
+  topic_id = params[:id]
+  local_topic = Topic.find(topic_id)
+  
+  @title = local_topic.title
+  @description = local_topic.description 
+
+  # @comments = Comment.all
+  # @title = 'All Comments'
   erb :topics
 end
 
-post '/topics' do
+post '/topic/:id' do
   comment = Comment.create(params)
   redirect '/topics'
 end

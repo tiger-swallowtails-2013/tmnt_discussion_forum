@@ -49,9 +49,9 @@ describe 'homepage' do
     last_response.body.should include("some description")
   end
 
-  # it "should all submitted topics on homepage" do
-  #   get '/'
-  #   last_response.body.should include("some other description")
-  # end
+  it "should have each thread link to a seperate page" do
+    get '/'
+    last_response.body.should include("/topic/")
+  end
 
 end
