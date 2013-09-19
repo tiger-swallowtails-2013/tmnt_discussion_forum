@@ -1,9 +1,4 @@
 <h1>Denim Headzzz</h1>
-<% if session[:fullname] %>
-<p>Logged in as <em><%= session[:fullname] %></em> </p>
-<% else %>
-<p>You must <a href='/login'>log in</a> to comment!</p>
-<% end %>
 <table>
   <tr>
     <td>Title</td>
@@ -23,6 +18,7 @@
 </table>
 
 <% if session[:fullname] %>
+<p>Logged in as <em><%= session[:fullname] %></em> </p>
 <div id="add_topic">
   <form action="/" method="post">
     <input type="text" name="title"></input>
@@ -30,4 +26,6 @@
     <input type="submit">
   </form>
 </div>
+<% else %>
+<p>You must <a href='/login'>log in</a> to make a new thread</p>
 <% end %>
