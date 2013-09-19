@@ -16,15 +16,22 @@ post '/' do
   redirect '/'
 end
 
-get '/topics' do
-  @comments = Comment.all
-  @title = 'All Comments'
+get '/topic/:id' do
+  @topic_id = params[:id]
+  local_topic = Topic.find(@topic_id)
+  
+  @title = local_topic.title
+  @description = local_topic.description 
+
+  @comments = Comment.where('topic_id = ?',@topic_id)
   erb :topics
 end
 
-post '/topics' do
-  comment = Comment.create(params)
-  redirect '/topics'
+post '/topic' do
+  Comment.create(params)
+  id = params[:topic_id]
+  path = '/topic/' + id.to_s
+  redirect path
 end
 
 get '/signup' do
