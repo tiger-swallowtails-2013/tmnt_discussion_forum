@@ -27,6 +27,18 @@ post '/topics' do
   redirect '/topics'
 end
 
+get '/signup' do
+  @signup = 'Sign-up'
+  @users = User.all
+  erb :signup
+end
+
+post '/signup' do
+  User.create!(params)
+  redirect '/signup'
+end
+
+
 get '/*' do 
   "404"
 end
