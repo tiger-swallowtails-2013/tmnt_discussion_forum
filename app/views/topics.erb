@@ -4,7 +4,6 @@
 <table>
   <% @comments.each do |comment| %>
     <tr>
-      <td><%= comment.id %></td>
       <td><%= comment.title %></td>
       <td><%= comment.content %></td>
     </tr>
@@ -14,9 +13,10 @@
 <h2> Create a new post </h2>
 
 <div id="add">
-  <form action="/topics" method="post">
+  <form action="/topic" method="post">
     <textarea name="title" placeholder="Title of post&hellip;"></textarea>
     <textarea row="10" cols="50" name="content" placeholder="Add comment&hellip;"></textarea>
+    <input type="hidden" name="topic_id" value = "<%= @topic_id %>">
     <input type="submit" value="Submit">
   </form>
 </div>
