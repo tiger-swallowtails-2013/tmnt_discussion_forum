@@ -51,7 +51,9 @@ describe 'homepage' do
 
   it "should have each thread link to a seperate page" do
     get '/'
-    last_response.body.should include("/topic/")
+    Topic.all.each do |topic|
+      last_response.body.should include("/topic/#{topic.id}")
+    end
   end
 
 end
