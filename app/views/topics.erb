@@ -10,12 +10,19 @@
   <% end %>
 </table>
 
-<h2> Create a new post </h2>
+<% if session[:user_id] %>
+  <h2> Create a new post </h2>
 
-<div id="add">
-  <form action="/topics/<%= @local_topic.id %>/comments" method="post">
-    <textarea name="title" placeholder="Title of post&hellip;"></textarea>
-    <textarea row="10" cols="50" name="content" placeholder="Add comment&hellip;"></textarea>
-    <input type="submit" value="Submit">
-  </form>
-</div>
+  <div id="add">
+    <form action="/topics/<%= @local_topic.id %>/comments" method="post">
+      <textarea name="title" placeholder="Title of post&hellip;"></textarea>
+      <textarea row="10" cols="50" name="content" placeholder="Add comment&hellip;"></textarea>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+
+  <% else %>
+  <p>You must <a href="/login">log in</a> to comment</p>
+<% end %>
+
+  
