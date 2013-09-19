@@ -1,0 +1,15 @@
+<div class="login">
+  <h1>Sign in!</h1>
+  <% if session[:errors] %>
+    <p class="errors"><%= session[:errors] %></p>
+    <% end %>
+  <form action="/login" method="post">
+    <p>Please enter your username:</p>
+    <input type="text" name="username" placeholder="username"></input>
+    <br>
+    <p>Please enter a password:</p>
+    <input type="password" name="password" placeholder="password"></input>
+    <br>
+    <input type="submit" value="Submit">
+  </form>
+</div>

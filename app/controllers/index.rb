@@ -4,6 +4,8 @@ $LOAD_PATH.unshift(File.expand_path("."))
 require 'config/main'
 require 'models/topic'
 
+enable :sessions
+
 
 get '/' do
   @topics = Topic.all 
@@ -36,9 +38,37 @@ end
 
 post '/signup' do
   User.create!(params)
-  redirect '/signup'
+  redirect '/'
 end
 
+get '/login' do
+  session[:errors] = nil
+  erb :login
+end
+
+post '/login' do
+  user = User.authenticate(username: params[:username], 
+                           password: params[:password])
+  if user
+    session[:user_id] = user.id
+    session[:fullname] = "#{user.first_name} #{user.last_name}"
+    session[:errors] = nil
+    redirect '/'
+  elsif User.find_by username: params[:username]
+    # User.find_by('username = ?', params[:username])
+    session[:errors] = "Invalid password"
+    erb :login
+  else
+    session[:errors] = "Username not recognized"
+    erb :login
+  end
+end
+
+post '/logout' do
+  session[:user_id] = nil
+  session[:fullname] = nil
+  redirect '/'
+end
 
 get '/*' do 
   "404"
