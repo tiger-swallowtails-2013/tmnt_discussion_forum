@@ -26,6 +26,6 @@ nav a {
 
 nav a:hover {
   background-color: blue;
-  color: green;
-  border-radius: 10px;
+  color: salmon;
+  border-radius: 2px;
 } 

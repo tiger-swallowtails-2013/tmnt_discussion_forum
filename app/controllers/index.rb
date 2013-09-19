@@ -64,6 +64,10 @@ post '/login' do
   end
 end
 
+get '/logout' do
+  erb :logout
+end
+
 post '/logout' do
   session[:user_id] = nil
   session[:fullname] = nil
