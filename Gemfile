@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'activerecord'
-gem 'sqlite3'
-gem 'sinatra'
+ruby '1.9.3'
+
+gem 'activerecord', '4.0.0'
+gem 'sinatra', '1.4.3'
+gem 'shotgun', '0.9'
+gem 'pg', '0.16.0'
+gem "sinatra-activerecord", '1.2.3'
