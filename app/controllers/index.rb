@@ -4,6 +4,8 @@ $LOAD_PATH.unshift(File.expand_path("."))
 require 'config/main'
 require 'models/topic'
 
+enable :sessions
+
 
 get '/' do
   @topics = Topic.all 
@@ -17,21 +19,15 @@ post '/' do
 end
 
 get '/topic/:id' do
-  @topic_id = params[:id]
-  local_topic = Topic.find(@topic_id)
-  
-  @title = local_topic.title
-  @description = local_topic.description 
-
-  @comments = Comment.where('topic_id = ?',@topic_id)
+  @local_topic = Topic.find(params[:id])
   erb :topics
 end
 
-post '/topic' do
-  Comment.create(params)
-  id = params[:topic_id]
-  path = '/topic/' + id.to_s
-  redirect path
+post '/topics/:topic_id/comments' do
+  Comment.create(topic_id: params[:topic_id],
+                 title: params[:title],
+                 content: params[:content])
+  redirect "/topic/#{params[:topic_id].to_s}"
 end
 
 get '/signup' do
@@ -42,9 +38,41 @@ end
 
 post '/signup' do
   User.create!(params)
-  redirect '/signup'
+  redirect '/'
 end
 
+get '/login' do
+  session[:errors] = nil
+  erb :login
+end
+
+post '/login' do
+  user = User.authenticate(username: params[:username], 
+                           password: params[:password])
+  if user
+    session[:user_id] = user.id
+    session[:fullname] = "#{user.first_name} #{user.last_name}"
+    session[:errors] = nil
+    redirect '/'
+  elsif User.find_by username: params[:username]
+    # User.find_by('username = ?', params[:username])
+    session[:errors] = "Invalid password"
+    erb :login
+  else
+    session[:errors] = "Username not recognized"
+    erb :login
+  end
+end
+
+get '/logout' do
+  erb :logout
+end
+
+post '/logout' do
+  session[:user_id] = nil
+  session[:fullname] = nil
+  redirect '/'
+end
 
 get '/*' do 
   "404"

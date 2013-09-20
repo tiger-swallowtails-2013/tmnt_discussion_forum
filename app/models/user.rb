@@ -4,4 +4,9 @@ class User < ActiveRecord::Base
     validates :password, presence: true
     validates :email, presence: true
     validates :username, presence: true
+
+    def self.authenticate(hash)
+      find(:first, :conditions => ["username = ? AND password = ?",
+                                   hash[:username], hash[:password]])
+    end
 end
