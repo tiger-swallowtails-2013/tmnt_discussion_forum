@@ -1,5 +1,5 @@
 require 'pathname'
-require 'sqlite3'
+require 'sqlite3' unless settings.production?
 require 'active_record'
 require 'sinatra'
 require 'date'
@@ -23,8 +23,12 @@ Dir[APP_ROOT.join('app', 'models', '*.rb')].each do |model_file|
   autoload ActiveSupport::Inflector.camelize(filename), model_file
 end
 
-ActiveRecord::Base.establish_connection :adapter  => 'sqlite3',
-                                        :database => DB_PATH
+# ActiveRecord::Base.establish_connection :adapter  => 'sqlite3',
+#                                         :database => DB_PATH
+
+ActiveRecord::Base.establish_connection(
+  :adapter => 'postgresql'
+  )
 
 configure do
   set :views, VIEW_PATH
