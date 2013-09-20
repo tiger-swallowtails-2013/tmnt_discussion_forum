@@ -1,7 +1,7 @@
 <h1> <%= @local_topic.title %> </h1>
 <h2> <%= @local_topic.description %> </h2>
 
-<table>
+<table class="table table-bordered">
   <% @local_topic.comments.each do |comment| %>
     <tr>
       <td><%= comment.title %></td>
