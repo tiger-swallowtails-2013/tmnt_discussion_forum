@@ -25,9 +25,8 @@ end
 # ActiveRecord::Base.establish_connection :adapter  => 'sqlite3',
 #                                         :database => DB_PATH
 
-ActiveRecord::Base.establish_connection(
-  :adapter => 'postgresql'
-  )
+ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
+
 
 configure do
   set :views, VIEW_PATH
