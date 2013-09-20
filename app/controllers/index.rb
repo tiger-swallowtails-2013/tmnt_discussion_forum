@@ -37,7 +37,9 @@ get '/signup' do
 end
 
 post '/signup' do
-  User.create!(params)
+  user = User.create!(params)
+  session[:user_id] = user.id
+  session[:fullname] = "#{user.first_name} #{user.last_name}"
   redirect '/'
 end
 
