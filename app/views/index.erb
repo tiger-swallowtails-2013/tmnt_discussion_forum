@@ -17,12 +17,14 @@
   <% end %>
 </table>
 
-
+<% if session[:fullname] %>
 <div id="add_topic">
   <form action="/" method="post">
     <input type="text" name="title"></input>
     <input type="text" name="description"></input>
-
     <input type="submit">
   </form>
 </div>
+<% else %>
+<p>You must <a href='/login'>log in</a> to make a new thread</p>
+<% end %>
