@@ -1,5 +1,4 @@
 require 'pathname'
-require 'sqlite3' unless settings.production?
 require 'active_record'
 require 'sinatra'
 require 'date'
